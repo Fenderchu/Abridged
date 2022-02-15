@@ -4,6 +4,7 @@ a little game project
 
 
 if you run into problems runing the code 
+
 1 make sure youve structured the files corectly
 somthing like
 
