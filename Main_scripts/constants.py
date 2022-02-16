@@ -15,6 +15,8 @@ tile_map_surface = pygame.surface.Surface((win_width, win_height))
 entity_surface = pygame.surface.Surface((win_width, win_height))
 entity_surface.set_colorkey((0, 0, 0))
 
+active_z = 5
+
 
 Land1 = pygame.image.load("Abridged_sprites/Land1.png").convert()
 Land2 = pygame.image.load("Abridged_sprites/Land2.png").convert()
@@ -44,3 +46,14 @@ Bright_Run_B_1 = pygame.image.load("Abridged_sprites/Animations/Bright_Run_B_1.p
 Bright_Run_B_2 = pygame.image.load("Abridged_sprites/Animations/Bright_Run_B_2.png")
 
 Bridge_sprite = pygame.image.load("Abridged_sprites/Bridge.png")
+
+# enemy sprites
+
+Slime_R = pygame.image.load("Abridged_sprites/Animations/Slime_R.png")
+Slime_L = pygame.image.load("Abridged_sprites/Animations/Slime_L.png")
+
+Slime_idle_R_1 = pygame.image.load("Abridged_sprites/Animations/Slime_idle_R_1.png")
+Slime_idle_L_1 = pygame.image.load("Abridged_sprites/Animations/Slime_idle_L_1.png")
+
+Slime_move_R_1 = pygame.image.load("Abridged_sprites/Animations/Slime_move_R_1.png")
+Slime_move_L_1 = pygame.image.load("Abridged_sprites/Animations/Slime_move_L_1.png")

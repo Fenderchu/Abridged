@@ -1,9 +1,10 @@
 from Main_scripts.constants import *
 from Main_scripts import map_builder as mb
+import Main_scripts.constants as const
 import random
 
 
-class Player():
+class Player:
     def __init__(self):
         self.pos = [25, 25, 5]
         self.sub_pos = [0, 0]
@@ -13,7 +14,9 @@ class Player():
         self.state = "move"
         self.inventory = []
         self.image = Bright_F
+        self.rect = self.image.get_rect()
         self.frame_count = 20
+        self.inv_frames = 30
 
     def find_spawn(self):
         invalid = True
@@ -82,8 +85,7 @@ class Player():
         f_sub_pos = [self.sub_pos[0], self.sub_pos[1]]
         f_pos = [self.pos[0], self.pos[1], self.pos[2]]
         col_flag = False
-        wrap_flag = False
-        wrap_dir = ""
+
         if self.direction[0] == "N" and self.direction[1] == "N":
             self.state = "idle"
         else:
@@ -98,7 +100,7 @@ class Player():
                 elif self.direction[1] == "B":
                     f_sub_pos[1] -= self.speed
 
-            if self.direction[0] != "N" or self.direction[1] != "N":
+            else:
                 if self.direction[0] == "R":
                     f_sub_pos[0] += self.speed * (2 ** 0.5)
                 elif self.direction[0] == "L":
@@ -146,7 +148,6 @@ class Player():
                 f_sub_pos = [round(f_sub_pos[0]), round(f_sub_pos[1])]
                 self.pos = f_pos
                 self.sub_pos = f_sub_pos
-                print(self.pos)
 
     def shift(self, direct):
         if 5 < world_map[self.pos[2]][self.pos[1]][self.pos[0]] < 10:
@@ -190,11 +191,19 @@ class Player():
     def harvest(self):
         pos = world_map[self.pos[2]][self.pos[1]][self.pos[0]]
 
-    def draw_player(self):
+    def hit(self):
+        self.inv_frames = 30
+
+
+    def draw_self(self):
         position = ((self.pos[0] * 16) + self.sub_pos[0] - 8, (self.pos[1] * 16) + self.sub_pos[1] - 16)
         entity_surface.blit(self.image, position)
-
+        self.rect.topleft = (position)
+        if self.inv_frames > 0:
+            self.inv_frames -= 1
     def update(self):
+
         self.move()
         self.update_image()
-        self.draw_player()
+        self.draw_self()
+        const.active_z = self.pos[2]
