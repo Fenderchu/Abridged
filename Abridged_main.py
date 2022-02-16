@@ -3,7 +3,9 @@ import Main_scripts.constants as const
 from Main_scripts.constants import *
 import Main_scripts.map_builder as mb
 from Main_scripts.player import Player
+from Main_scripts.enemy import Enemy
 
+player = Player()
 
 def main_loop():
     clock = pygame.time.Clock()
@@ -12,8 +14,7 @@ def main_loop():
 
     pygame.display.update()
 
-    player = Player()
-    player2 = Player()
+    enemies = [Enemy(1, 5), Enemy(1, 5)]
 
     mb.build_map()
 
@@ -25,7 +26,13 @@ def main_loop():
 
     while run:
         clock.tick(30)
-        
+
+        for enemy in enemies:
+            if enemy.pos[2] == const.active_z:
+                enemy.update()
+                if player.rect.colliderect(enemy.rect) and player.frame_count == 1:
+                    print("hit")
+                    player.hit()
         player.update()
 
         for event in pygame.event.get():
@@ -44,6 +51,8 @@ def main_loop():
                 elif event.key == pygame.K_s:
                     player.direction[1] = "F"
                     player.prev_direction = [player.direction[0], player.direction[1]]
+                if event.key == pygame.K_1:
+                    enemies.append(Enemy(1, player.pos[2]))
 
                 if event.key == pygame.K_z:
                     player.shift(1)
